@@ -11,9 +11,8 @@ func _input(evt):
 		else:
 			tracking = false
 			var kickDir = startPos - evt.position
-			gravity_scale = 1
+			gravity_scale = 0.25
 			apply_force(kickDir * 300)
-			
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
