@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhykx2o04nrd2"]
+[gd_scene load_steps=12 format=3 uid="uid://bhykx2o04nrd2"]
 
 [ext_resource type="PackedScene" uid="uid://ceaevh0l1mud1" path="res://Labs/3/scenes/paddle.tscn" id="1_8qvux"]
 [ext_resource type="Script" path="res://Labs/3/scripts/bricks.gd" id="1_60od4"]
+[ext_resource type="Script" path="res://Labs/3/scripts/pong.gd" id="1_qmt0q"]
 [ext_resource type="PackedScene" uid="uid://bykdlevm7g23r" path="res://Labs/3/scenes/brick.tscn" id="2_r4pmc"]
+[ext_resource type="Theme" uid="uid://dagmmovas8t8" path="res://Labs/3/resources/default.tres" id="5_hh6ll"]
+[ext_resource type="Script" path="res://Labs/3/scripts/ui.gd" id="5_kyk4s"]
 [ext_resource type="PackedScene" uid="uid://loybtxgaq34i" path="res://Labs/3/scenes/rigid_ball.tscn" id="5_r2bqc"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ijsxd"]
@@ -19,6 +22,7 @@ normal = Vector2(0, 1)
 distance = -648.0
 
 [node name="Pong" type="Node2D"]
+script = ExtResource("1_qmt0q")
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -54,3 +58,18 @@ position = Vector2(576, 550)
 [node name="Ball" parent="." instance=ExtResource("5_r2bqc")]
 position = Vector2(576, 324)
 lock_rotation = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("5_kyk4s")
+
+[node name="Score" type="Label" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_hh6ll")
+text = "Score: 0"
+horizontal_alignment = 1
+
+[connection signal="brick_destroyed" from="Bricks" to="." method="_on_brick_destroyed"]

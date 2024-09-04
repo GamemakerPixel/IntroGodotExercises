@@ -1,5 +1,7 @@
 extends Node2D
 
+signal brick_destroyed
+
 @export var brick_scene: PackedScene
 @export var brick_margin := Vector2(100, 100)
 @export var brick_vertical_range := 100
@@ -24,4 +26,9 @@ func _update_bricks():
 				brick_margin.y + brick_row_index * position_difference.y
 			)
 			brick.add_to_group("bricks")
+			brick.connect("destroyed", _on_brick_destroyed)
 			add_child(brick)
+
+
+func _on_brick_destroyed():
+	emit_signal("brick_destroyed")
