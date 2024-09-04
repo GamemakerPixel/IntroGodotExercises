@@ -1,14 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhykx2o04nrd2"]
+[gd_scene load_steps=9 format=3 uid="uid://bhykx2o04nrd2"]
 
 [ext_resource type="PackedScene" uid="uid://ceaevh0l1mud1" path="res://Labs/3/scenes/paddle.tscn" id="1_8qvux"]
+[ext_resource type="Script" path="res://Labs/3/scripts/bricks.gd" id="1_60od4"]
+[ext_resource type="PackedScene" uid="uid://bykdlevm7g23r" path="res://Labs/3/scenes/brick.tscn" id="2_r4pmc"]
+[ext_resource type="PackedScene" uid="uid://loybtxgaq34i" path="res://Labs/3/scenes/rigid_ball.tscn" id="5_r2bqc"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ijsxd"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_spuae"]
 normal = Vector2(-1, 0)
+distance = -1152.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xhqan"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j3ifk"]
+distance = -648.0
 
 [node name="Pong" type="Node2D"]
-
-[node name="Paddle" parent="." instance=ExtResource("1_8qvux")]
-position = Vector2(576, 550)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -20,15 +30,27 @@ shape = SubResource("WorldBoundaryShape2D_ijsxd")
 [node name="Right" type="StaticBody2D" parent="Walls"]
 
 [node name="Collision" type="CollisionShape2D" parent="Walls/Right"]
-position = Vector2(1152, 0)
-shape = SubResource("WorldBoundaryShape2D_ijsxd")
+shape = SubResource("WorldBoundaryShape2D_spuae")
 
 [node name="Down" type="StaticBody2D" parent="Walls"]
 
 [node name="Collision" type="CollisionShape2D" parent="Walls/Down"]
-shape = SubResource("WorldBoundaryShape2D_ijsxd")
+shape = SubResource("WorldBoundaryShape2D_xhqan")
 
 [node name="Up" type="StaticBody2D" parent="Walls"]
 
 [node name="Collision" type="CollisionShape2D" parent="Walls/Up"]
-shape = SubResource("WorldBoundaryShape2D_ijsxd")
+shape = SubResource("WorldBoundaryShape2D_j3ifk")
+
+[node name="Bricks" type="Node2D" parent="."]
+script = ExtResource("1_60od4")
+brick_scene = ExtResource("2_r4pmc")
+brick_vertical_range = 150
+brick_count = Vector2(8, 3)
+
+[node name="Paddle" parent="." instance=ExtResource("1_8qvux")]
+position = Vector2(576, 550)
+
+[node name="Ball" parent="." instance=ExtResource("5_r2bqc")]
+position = Vector2(576, 324)
+lock_rotation = true
