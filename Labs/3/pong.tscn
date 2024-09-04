@@ -1,3 +1,34 @@
-[gd_scene format=3 uid="uid://bhykx2o04nrd2"]
+[gd_scene load_steps=3 format=3 uid="uid://bhykx2o04nrd2"]
 
-[node name="pong" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://ceaevh0l1mud1" path="res://Labs/3/scenes/paddle.tscn" id="1_8qvux"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ijsxd"]
+normal = Vector2(-1, 0)
+
+[node name="Pong" type="Node2D"]
+
+[node name="Paddle" parent="." instance=ExtResource("1_8qvux")]
+position = Vector2(576, 550)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("WorldBoundaryShape2D_ijsxd")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Right"]
+position = Vector2(1152, 0)
+shape = SubResource("WorldBoundaryShape2D_ijsxd")
+
+[node name="Down" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Down"]
+shape = SubResource("WorldBoundaryShape2D_ijsxd")
+
+[node name="Up" type="StaticBody2D" parent="Walls"]
+
+[node name="Collision" type="CollisionShape2D" parent="Walls/Up"]
+shape = SubResource("WorldBoundaryShape2D_ijsxd")
