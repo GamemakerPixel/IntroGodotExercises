@@ -1,10 +1,8 @@
-extends CharacterBody2D
+extends StaticBody2D
 
-const initial_velocity = Vector2(400, 400)
+const INITIAL_VELOCITY = Vector2(400, 400)
 
-
-func _ready() -> void:
-	velocity = initial_velocity
+var velocity = INITIAL_VELOCITY
 
 
 func _physics_process(delta: float) -> void:

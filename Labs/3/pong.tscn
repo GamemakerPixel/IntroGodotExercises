@@ -57,7 +57,6 @@ position = Vector2(576, 550)
 
 [node name="Ball" parent="." instance=ExtResource("5_r2bqc")]
 position = Vector2(576, 324)
-lock_rotation = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("5_kyk4s")
