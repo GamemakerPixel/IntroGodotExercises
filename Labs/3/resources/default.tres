@@ -1,7 +1,0 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dagmmovas8t8"]
-
-[ext_resource type="FontFile" uid="uid://d3sp2yf0813gk" path="res://amerika_sans.ttf" id="1_4th81"]
-
-[resource]
-default_font = ExtResource("1_4th81")
-default_font_size = 48
