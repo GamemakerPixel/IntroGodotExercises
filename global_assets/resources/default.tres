@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dagmmovas8t8"]
+
+[ext_resource type="FontFile" uid="uid://d3sp2yf0813gk" path="res://amerika_sans.ttf" id="1_4th81"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jorlw"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+
+[resource]
+default_font = ExtResource("1_4th81")
+default_font_size = 48
+Label/styles/normal = SubResource("StyleBoxEmpty_jorlw")
