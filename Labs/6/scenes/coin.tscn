@@ -6,24 +6,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_fa7km"]
 radius = 11.0
 
-[sub_resource type="Animation" id="Animation_85psp"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -3), Vector2(0, 3)]
-}
-
 [sub_resource type="Animation" id="Animation_tol1r"]
 length = 0.001
 tracks/0/type = "value"
@@ -101,6 +83,24 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_85psp"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -3), Vector2(0, 3)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ll388"]
