@@ -8,7 +8,6 @@ const DECELERATION_FRAMES = 5
 var within_edge_grace_period = true
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		if $EdgeGrace.is_stopped():
@@ -17,15 +16,9 @@ func _physics_process(delta: float) -> void:
 		$EdgeGrace.stop()
 		within_edge_grace_period = true
 
-	# Handle jump.
-	if (
-		Input.is_action_just_pressed("action")
-		and (
-			is_on_floor()
-			or within_edge_grace_period
-			or $EarlyGrace.is_colliding()
-			)
-	):
+# I've used "action" instead of "jump" since this project really
+# contains multiple games.
+	if Input.is_action_just_pressed("action") and _can_jump():
 		velocity.y = JUMP_VELOCITY
 		within_edge_grace_period = false
 	
@@ -33,8 +26,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("action"):
 		velocity.y *= 0.5
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
@@ -46,6 +37,12 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+# Player can jump if they are on the floor, have just fallen off a ledge in the
+# past 0.15 seconds, or are 8 pixels or less from the ground.
+func _can_jump() -> bool:
+	return (
+		is_on_floor() or within_edge_grace_period or $EarlyGrace.is_colliding()
+	)
 
 func _on_edge_grace_timeout() -> void:
 	within_edge_grace_period = false

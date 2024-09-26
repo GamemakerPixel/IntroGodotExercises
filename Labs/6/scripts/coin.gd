@@ -9,6 +9,7 @@ func _ready() -> void:
 
 
 func _on_player_collision(_body: Node2D) -> void:
+	# Stop detecting collisions
 	set_deferred("monitoring", false)
 	$Animation.play("collect")
 	collected.emit()

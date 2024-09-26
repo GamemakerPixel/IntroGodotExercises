@@ -18,8 +18,8 @@ func on_coin_collected():
 
 func _check_for_win_condition():
 	if score == max_score:
-		win_level()
+		_win_level()
 
 
-func win_level():
+func _win_level():
 	get_tree().call_deferred("change_scene_to_packed", level_select)

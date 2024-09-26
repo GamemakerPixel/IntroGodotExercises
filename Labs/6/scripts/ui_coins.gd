@@ -1,16 +1,15 @@
 extends HBoxContainer
 
-@export var collected_color: Color = Color.WHITE
-
 var max_score: int = 1 : set = _set_max_score
 var score: int = 0 : set = _set_score
 
+# Used as a template for automatically instantiated coins
 @onready var coin_node = $Coin.duplicate()
 var _coins: Array[Control]
 
 
 func _ready() -> void:
-	_set_max_score(max_score)
+	_create_coins(max_score)
 
 
 func _set_max_score(new_max_score: int):
@@ -32,4 +31,4 @@ func _create_coins(count: int) -> void:
 func _set_score(new_score: int):
 	score = clampi(new_score, 0, max_score)
 	for coin_index in range(new_score):
-		_coins[coin_index].modulate = collected_color
+		_coins[coin_index].modulate = Color.WHITE
