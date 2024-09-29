@@ -51,7 +51,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 script = ExtResource("6_ux886")
-uncollected_color = Color(0.529412, 0.529412, 0.529412, 0.54902)
 
 [node name="Coin" type="TextureRect" parent="UI/Margin/Coins"]
 modulate = Color(0.53, 0.53, 0.53, 0.54902)
