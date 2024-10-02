@@ -30,6 +30,7 @@ func _physics_process(delta):
 
 func on_crash():
 	$Sprite.play("crash")
+	$Sprite.animation_finished.connect(_on_sprite_animation_finished)
 	$SoundEffects/Crash.play()
 	$Reset.start()
 	crashed = true
@@ -50,3 +51,7 @@ func _run():
 
 func _on_reset_timeout() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_sprite_animation_finished() -> void:
+	hide()
