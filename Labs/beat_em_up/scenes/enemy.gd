@@ -12,6 +12,9 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	# Yes, I should be using delta here to ensure that the frequency of physics
+	# frames doesn't impact how quickly the enemies movement is dampened. I don't
+	# feel like solving for that equation right now though.
 	velocity *= DAMPENING
 	move_and_slide()
 
