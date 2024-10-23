@@ -24,6 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var look_rotation = event.screen_relative * mouse_sensitivity
 		rotate(Vector3.UP, -look_rotation.x)
 		$Camera.rotate(Vector3.RIGHT, -look_rotation.y)
+		$Camera.rotation.x = clampf($Camera.rotation.x, -PI/2, PI/2)
 
 
 func _physics_process(_delta: float) -> void:
