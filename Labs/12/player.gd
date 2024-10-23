@@ -32,5 +32,5 @@ func _physics_process(_delta: float) -> void:
 
 	velocity = (
 		forward * move_input.y + right * move_input.x
-	).normalized() * speed
+	) * speed
 	move_and_slide()
