@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://j820lql1y6dj"]
+
+[ext_resource type="Script" path="res://Labs/13/box.gd" id="1_eo1kh"]
+[ext_resource type="Material" uid="uid://bfud78k0exuhs" path="res://Labs/13/red.tres" id="2_hnim4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8fp06"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gemhu"]
+
+[node name="Box" type="RigidBody3D" groups=["box"]]
+script = ExtResource("1_eo1kh")
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_8fp06")
+surface_material_override/0 = ExtResource("2_hnim4")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_gemhu")

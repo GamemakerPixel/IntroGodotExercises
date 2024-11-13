@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name FirstPersonPlayer
 
 # meters per second
 @export var speed: float = 10.0

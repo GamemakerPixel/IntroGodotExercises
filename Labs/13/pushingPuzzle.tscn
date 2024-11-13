@@ -1,3 +1,85 @@
-[gd_scene format=3 uid="uid://c0sjx5pcpvhis"]
+[gd_scene load_steps=13 format=3 uid="uid://c0sjx5pcpvhis"]
 
-[node name="pushingPuzzle" type="Node3D"]
+[ext_resource type="Script" path="res://Labs/13/pushing_puzzle.gd" id="1_0lp07"]
+[ext_resource type="PackedScene" uid="uid://davy10q2uap5b" path="res://Labs/13/player.tscn" id="1_7vcu7"]
+[ext_resource type="Shader" path="res://Labs/13/checkers.gdshader" id="1_o2u3k"]
+[ext_resource type="PackedScene" uid="uid://j820lql1y6dj" path="res://Labs/13/box.tscn" id="3_bje70"]
+[ext_resource type="PackedScene" uid="uid://cpu8pic6ut7ds" path="res://Labs/13/goal.tscn" id="4_fmsyh"]
+[ext_resource type="AudioStream" uid="uid://cw2p4ua0d7147" path="res://Labs/13/win_sound.wav" id="6_j15cs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ay27c"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_f2pv4"]
+sky_material = SubResource("ProceduralSkyMaterial_ay27c")
+
+[sub_resource type="Environment" id="Environment_1sc2c"]
+background_mode = 2
+sky = SubResource("Sky_f2pv4")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apwgf"]
+render_priority = 0
+shader = ExtResource("1_o2u3k")
+shader_parameter/uv_scale = 5.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pkeab"]
+material = SubResource("ShaderMaterial_apwgf")
+size = Vector2(20, 20)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5sglc"]
+
+[node name="PushingPuzzle" type="Node3D"]
+script = ExtResource("1_0lp07")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1sc2c")
+
+[node name="Player" parent="." instance=ExtResource("1_7vcu7")]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_pkeab")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_5sglc")
+
+[node name="Boxes" type="Node3D" parent="."]
+
+[node name="Red" parent="Boxes" instance=ExtResource("3_bje70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, -7)
+
+[node name="Green" parent="Boxes" instance=ExtResource("3_bje70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -7)
+color = 1
+
+[node name="Blue" parent="Boxes" instance=ExtResource("3_bje70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.5, -7)
+color = 2
+
+[node name="Goals" type="Node3D" parent="."]
+
+[node name="Red" parent="Goals" instance=ExtResource("4_fmsyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
+
+[node name="Green" parent="Goals" instance=ExtResource("4_fmsyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+color = 1
+
+[node name="Blue" parent="Goals" instance=ExtResource("4_fmsyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 7)
+color = 2
+
+[node name="WinSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_j15cs")
+
+[connection signal="target_box_entered" from="Goals/Red" to="." method="increment_correct_boxes"]
+[connection signal="target_box_exited" from="Goals/Red" to="." method="decrement_correct_boxes"]
+[connection signal="target_box_entered" from="Goals/Green" to="." method="increment_correct_boxes"]
+[connection signal="target_box_exited" from="Goals/Green" to="." method="decrement_correct_boxes"]
+[connection signal="target_box_entered" from="Goals/Blue" to="." method="increment_correct_boxes"]
+[connection signal="target_box_exited" from="Goals/Blue" to="." method="decrement_correct_boxes"]

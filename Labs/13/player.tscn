@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://davy10q2uap5b"]
+
+[ext_resource type="Script" path="res://Labs/13/player.gd" id="1_n8gxk"]
+[ext_resource type="Script" path="res://Labs/13/ui.gd" id="2_mdxmj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxeiv"]
+height = 1.65
+
+[sub_resource type="Gradient" id="Gradient_6gu3p"]
+offsets = PackedFloat32Array(0.465385, 0.538462)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rjdab"]
+gradient = SubResource("Gradient_6gu3p")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_5kibi"]
+resource_name = "can_grab"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/TextureRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(12, 12), Vector2(16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_w7fhv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/TextureRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(12, 12)]
+}
+
+[sub_resource type="Animation" id="Animation_kjaxt"]
+resource_name = "cannot_grab"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/TextureRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(16, 16), Vector2(12, 12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_651t7"]
+_data = {
+"RESET": SubResource("Animation_w7fhv"),
+"can_grab": SubResource("Animation_5kibi"),
+"cannot_grab": SubResource("Animation_kjaxt")
+}
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_n8gxk")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.825, 0)
+shape = SubResource("CapsuleShape3D_gxeiv")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57, 0)
+
+[node name="GrabRay" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -5)
+
+[node name="GrabTarget" type="AnimatableBody3D" parent="Camera"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_mdxmj")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CenterContainer"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_rjdab")
+
+[node name="Animation" type="AnimationPlayer" parent="UI"]
+libraries = {
+"": SubResource("AnimationLibrary_651t7")
+}
+
+[node name="PinJoint3D" type="PinJoint3D" parent="."]

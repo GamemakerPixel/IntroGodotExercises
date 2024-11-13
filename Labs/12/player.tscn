@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://djsi3hseljmf2"]
+
+[ext_resource type="Script" path="res://Labs/12/player.gd" id="1_5d2f8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxeiv"]
+height = 1.65
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_5d2f8")
+speed = 7.0
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.825, 0)
+shape = SubResource("CapsuleShape3D_gxeiv")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57, 0)
