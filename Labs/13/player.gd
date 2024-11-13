@@ -28,3 +28,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	$Camera/GrabTarget.position = $Camera/GrabTarget.position
+
+
+func _process(delta: float) -> void:
+	$UI.box_in_range = (
+		$Camera/GrabRay.is_colliding()
+		and $Camera/GrabRay.get_collider().is_in_group(BOX_GROUP)
+	)
